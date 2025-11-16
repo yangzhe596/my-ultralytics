@@ -23,6 +23,7 @@ datasets/fred_coco/
 ### 1. 完整一键训练（推荐）
 
 使用 `train_fred_coco_complete.py` 脚本，它会自动：
+
 - 检查数据集结构
 - 创建YOLO训练所需的目录结构
 - 移动图片到正确的位置
@@ -64,27 +65,31 @@ python train_fred_coco.py --model-size s --epochs 200 --batch-size 32
 ./run_training.sh
 
 # 指定模型大小
-./run_training.sh s  # 使用YOLOv8s模型
+./run_training.sh s # 使用YOLOv8s模型
 ```
 
 ## 参数说明
 
 ### 模型参数
+
 - `--model-size`: YOLOv8模型大小，可选值为 `n`, `s`, `m`, `l`, `x`（从Nano到Extra Large）
 
 ### 训练参数
+
 - `--epochs`: 训练轮数（默认：100）
 - `--batch-size`: 批次大小（默认：16）
 - `--img-size`: 图像尺寸（默认：640）
 - `--device`: 训练设备（默认：0，表示使用第一个GPU；使用cpu表示CPU训练）
 
 ### 优化参数
+
 - `--optimizer`: 优化器类型（默认：AdamW，可选：SGD, Adam）
 - `--learning-rate`: 初始学习率（默认：0.01）
 - `--weight-decay`: 权重衰减（默认：0.0005）
 - `--patience`: 早停耐心值（默认：50）
 
 ### 输出参数
+
 - `--save-period`: 模型保存周期（默认：10）
 - `--workers`: 数据加载工作进程数（默认：8）
 
@@ -111,10 +116,10 @@ runs/train/fred_coco_n/
 from ultralytics import YOLO
 
 # 加载训练好的模型
-model = YOLO('runs/train/fred_coco_n/weights/best.pt')
+model = YOLO("runs/train/fred_coco_n/weights/best.pt")
 
 # 进行预测
-results = model('path/to/image.jpg')
+results = model("path/to/image.jpg")
 
 # 可视化结果
 for r in results:
@@ -124,19 +129,25 @@ for r in results:
 ## 常见问题
 
 ### 1. 内存不足
+
 如果遇到内存不足问题，可以尝试：
+
 - 减小 `batch-size`
 - 减小 `img-size`
 - 使用更小的模型（例如 `yolov8n` 而不是 `yolov8x`）
 
 ### 2. 训练速度慢
+
 如果训练速度慢，可以尝试：
+
 - 增加 `workers` 数量
 - 使用GPU训练（设置 `--device 0`）
 - 使用更小的模型
 
 ### 3. 检测精度低
+
 如果检测精度不理想，可以尝试：
+
 - 增加训练轮数（`--epochs`）
 - 调整学习率（`--learning-rate`）
 - 使用更大的模型
@@ -156,10 +167,10 @@ for r in results:
 from ultralytics import YOLO
 
 # 加载最后一个模型
-model = YOLO('runs/train/fred_coco_n/weights/last.pt')
+model = YOLO("runs/train/fred_coco_n/weights/last.pt")
 
 # 继续训练
-model.train(data='datasets/fred_coco.yaml', epochs=100, resume=True)
+model.train(data="datasets/fred_coco.yaml", epochs=100, resume=True)
 ```
 
 ### 3. 超参数调优
